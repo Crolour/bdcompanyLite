@@ -2,7 +2,7 @@
 # База данных компании для управления проектами
 
 
-![Diagram](https://github.com/Crolour/bdcompanyLite/blob/master/{7B950A9E-C32E-40EE-A182-4681420AFD3C}.png)
+![ERD-Diagram](https://github.com/Crolour/bdcompanyLite/blob/master/{7B950A9E-C32E-40EE-A182-4681420AFD3C}.png)
 
 
 ## Описание
