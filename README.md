@@ -17,10 +17,35 @@
 - **tblEmployees** — сотрудники
 - **tblEmployeeTaskAssignments** — связь "многие ко многим" между задачами и сотрудниками
 - **tblProjectLogs** — лог событий по проектам
+  
+## Запросы 
+**1 Получить список всех задач определенного сотрудника**
+``` sql 
+SELECT t.TaskID, t.Description, t.Status, p.Name AS ProjectName
+FROM tblEmployeeTaskAssignments eta
+JOIN tblTasks t ON eta.TaskID = t.TaskID
+JOIN tblProjects p ON t.ProjectID = p.ProjectID
+WHERE eta.EmployeeID = 1;
+```
 
+** 2 Найти все проекты, у которых есть незавершённые задачи ***
+``` sql
+SELECT DISTINCT p.ProjectID, p.Name, p.Status
+FROM tblProjects p
+JOIN tblTasks t ON p.ProjectID = t.ProjectID
+WHERE t.Status <> 'выполнена';
+```
+
+** 3. Подсчитать количество задач у каждого проекта**
+``` sql
+SELECT p.ProjectID, p.Name, COUNT(t.TaskID) AS TaskCount
+FROM tblProjects p
+LEFT JOIN tblTasks t ON p.ProjectID = t.ProjectID
+GROUP BY p.ProjectID, p.Name;
+```
 ## Триггеры
 
-1. ```**trgPreventClientDeleteIfProjectsExist**  
+1. **trgPreventClientDeleteIfProjectsExist**  
    Запрещает удаление клиента, если у него есть проекты.
 
 2. **trgUpdateProjectStatusOnAllTasksCompleted**  
